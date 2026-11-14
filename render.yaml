@@ -1,0 +1,20 @@
+# Render Blueprint — deploy sexchat-ai in one click.
+# 1. Push this repo to GitHub.
+# 2. In Render: New + -> Blueprint -> pick the repo.
+# 3. Set the environment variables below in the Render dashboard
+#    (OPENAI_API_KEY is secret — never commit it).
+# Docs: https://render.com/docs/blueprint-spec
+services:
+  - type: web
+    name: sexchat-ai
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: OPENAI_BASE_URL
+        value: https://api.groq.com/openai/v1
+      - key: MODEL
+        value: openai/gpt-oss-120b
+      - key: OPENAI_API_KEY
+        sync: false

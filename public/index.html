@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>sexchat-ai — 18+</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="age-gate" class="gate">
+    <div class="gate-card">
+      <h1>🔞 18+ Only</h1>
+      <p>Aplikasi ini berisi percakapan dewasa. Lo harus berusia 18 tahun atau lebih untuk lanjut.</p>
+      <button id="age-yes">Gue 18+ — Lanjut</button>
+      <button id="age-no" class="ghost">Gue di bawah 18</button>
+    </div>
+  </div>
+
+  <div id="app" class="hidden">
+    <header>
+      <div class="brand">💬 sexchat-ai</div>
+      <button id="new-chat" title="Chat baru">＋ Baru</button>
+    </header>
+
+    <section id="characters" class="characters"></section>
+
+    <main id="messages" class="messages"></main>
+
+    <footer>
+      <form id="composer">
+        <input id="input" type="text" placeholder="Tulis pesan lo..." autocomplete="off" />
+        <button type="submit" id="send">➤</button>
+      </form>
+      <p class="hint">Riwayat chat tersimpan di perangkat lo. Jangan bagikan API key ke siapa pun.</p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
