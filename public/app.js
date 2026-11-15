@@ -31,6 +31,19 @@ function bubble(role, text) {
   return div;
 }
 
+function photoBubble(src) {
+  const div = document.createElement('div');
+  div.className = 'msg assistant photo';
+  const img = document.createElement('img');
+  img.src = src;
+  img.alt = 'Foto';
+  img.loading = 'lazy';
+  div.appendChild(img);
+  messagesEl.appendChild(div);
+  messagesEl.scrollTop = messagesEl.scrollHeight;
+  return div;
+}
+
 function renderHistory() {
   messagesEl.innerHTML = '';
   const history = loadHistory(currentId);
@@ -39,7 +52,10 @@ function renderHistory() {
     if (c && c.greeting) bubble('assistant', c.greeting);
     return;
   }
-  history.forEach((m) => bubble(m.role, m.content));
+  history.forEach((m) => {
+    if (m.photo) photoBubble(m.photo);
+    bubble(m.role, m.content);
+  });
 }
 
 function renderCharacters() {
@@ -75,8 +91,11 @@ async function sendMessage(text) {
     if (!r.ok) throw new Error(data.error || `Server error ${r.status}`);
     const reply = data.reply;
     const updated = loadHistory(currentId);
-    updated.push({ role: 'assistant', content: reply });
+    const entry = { role: 'assistant', content: reply };
+    if (data.photo) entry.photo = data.photo;
+    updated.push(entry);
     saveHistory(currentId, updated);
+    if (data.photo) photoBubble(data.photo);
     bubble('assistant', reply);
   } catch (e) {
     typing.remove();

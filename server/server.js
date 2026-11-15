@@ -57,6 +57,27 @@ app.post('/api/chat', async (req, res) => {
     return res.status(500).json({ error: 'No characters found in ./characters' });
   }
 
+  // ---- Photo requests ("pap") ---------------------------------------------
+  // If the user asks for a photo and this character has a photo album,
+  // send a photo instead of an LLM reply. No API call is spent.
+  const PHOTO_TRIGGERS = /(pap|foto|selfie|selpi|\bpic\b|photo|gambar|wajah)/i;
+  const lastUser = [...messages].reverse().find((m) => m && m.role === 'user');
+  if (
+    lastUser &&
+    typeof lastUser.content === 'string' &&
+    PHOTO_TRIGGERS.test(lastUser.content) &&
+    Array.isArray(character.photos) &&
+    character.photos.length > 0
+  ) {
+    const userTurns = messages.filter((m) => m && m.role === 'user').length;
+    const photo = character.photos[userTurns % character.photos.length];
+    const captions = Array.isArray(character.photoCaptions) && character.photoCaptions.length > 0
+      ? character.photoCaptions
+      : ['Nih pap gue 😌'];
+    const reply = captions[Math.floor(Math.random() * captions.length)];
+    return res.json({ reply, photo });
+  }
+
   // Keep only the last 40 turns so the prompt stays bounded.
   const history = messages
     .filter((m) => m && (m.role === 'user' || m.role === 'assistant') && typeof m.content === 'string')
