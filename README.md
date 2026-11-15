@@ -67,7 +67,7 @@ docker run -p 3000:3000 --env-file .env sexchat-ai
 
 Provider lain:
 
-- Groq: `https://api.groq.com/openai/v1` + model `openai/gpt-oss-120b` (gratis, tanpa kartu kredit)
+- Groq: `https://api.groq.com/openai/v1` + model `qwen/qwen3.8-27b` (gratis, tanpa kartu kredit, paling bebas buat roleplay dewasa — model gpt-oss malah nolak konten eksplisit)
 - OpenRouter: `https://openrouter.ai/api/v1` + model `mistralai/mistral-7b-instruct`
 - Ollama lokal: `http://localhost:11434/v1` + model lokal lo (API key boleh isi apa saja)
 
